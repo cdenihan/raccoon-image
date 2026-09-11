@@ -12,7 +12,8 @@ export PYTHONNOUSERSITE=1
 id pi
 apt-get update
 apt-get -y -o Dpkg::Options::=--force-confold full-upgrade
-apt-get install -y python3-pip network-manager uv
+apt-get install -y python3-pip network-manager
+python3 -m pip install --upgrade uv
 mkdir -p /tmp/raccoon-server /tmp/raccoon-reader
 tar -xzf /tmp/image-inputs/raccoon-cli/*.tar.gz -C /tmp/raccoon-server
 tar -xzf /tmp/image-inputs/stm32-data-reader/*.tar.gz -C /tmp/raccoon-reader
