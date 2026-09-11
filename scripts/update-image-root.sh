@@ -12,6 +12,9 @@ export PYTHONNOUSERSITE=1
 id pi
 apt-get update
 apt-get -y -o Dpkg::Options::=--force-confold full-upgrade
+# The refreshed kernel must still provide the bot's touchscreen support.
+test -s /boot/firmware/overlays/tsc2007.dtbo
+find /lib/modules -name 'tsc2007.ko*' -print -quit | grep -q .
 apt-get install -y python3-pip network-manager
 python3 -m pip install --upgrade uv
 mkdir -p /tmp/raccoon-server /tmp/raccoon-reader
@@ -52,8 +55,10 @@ ConditionPathExists=!/var/lib/raccoon-image-configured
 
 [Service]
 Type=oneshot
+ExecStart=/usr/bin/raspi-config --expand-rootfs
 ExecStart=/usr/bin/python3 -m raccoon_cli.server.cli post-install
 ExecStart=/usr/bin/touch /var/lib/raccoon-image-configured
+ExecStart=/usr/bin/systemctl --no-block reboot
 
 [Install]
 WantedBy=multi-user.target

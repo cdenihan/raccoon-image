@@ -52,7 +52,8 @@ The mutable `bundles/dev.json` is not required.
 
 Wired networking uses DHCP. Saved network profiles are removed, so configure Wi-Fi
 after boot. The seed's `pi` account/password are retained; SSH host keys and machine
-identity are regenerated. The upstream server setup runs once on first boot.
+identity are regenerated. The upstream server setup runs once on first boot, which also expands the root
+partition and reboots once to use the full SD card.
 Matching STM32 firmware is included in `/home/pi/flashFiles`, but CI cannot flash
 the physical coprocessor. When needed, run `sudo bash flash_wombat.sh` from that
 directory on the bot. Hardware boot, touchscreen, Ethernet, and firmware testing
