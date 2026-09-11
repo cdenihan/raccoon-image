@@ -9,6 +9,11 @@ on:
         description: Publish a release (disable for a build-only test)
         type: boolean
         default: false
+  push:
+    paths:
+      - '.github/workflows/image.yml'
+      - 'scripts/**'
+      - 'tests/**'
   pull_request:
     paths:
       - '.github/workflows/image.yml'
@@ -35,6 +40,7 @@ jobs:
 
   build:
     needs: validate
+    if: github.event_name != 'push'
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 180
     steps:
